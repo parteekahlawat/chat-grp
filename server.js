@@ -16,11 +16,15 @@ app.prepare().then(() => {
   io.on("connection", (socket) => {
     console.log("Connection made successfully!");
 
-    socket.on("message", (message) => {
-      console.log("Received message:", message, `from ${socket.id}`);
+    socket.on("sent-message", (message, user) => {
+      console.log("Received message on server side: ", message);
+      console.log("Received username on server side:", user);
       io.emit("all-message", message)
-      io.emit("all-message-id", socket.id)
     });
+    socket.on("sent-username", (user, msg)=>{
+      console.log("Received username on server side:", user," and ", msg);
+      io.emit("rec-username", user)
+    })
   });
 
   httpServer.once("error", (err) => {
