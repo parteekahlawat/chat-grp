@@ -60,7 +60,7 @@ export default function Home() {
 
     });
     socket.on("rec-username", (user: String) => {
-      console.log("received username on client side: ", user);
+      console.log("Received username on client side: ", user);
       setUser(user.toString());
     });
 
@@ -82,8 +82,6 @@ export default function Home() {
 
   return (
     <div>
-      <script src="/socket.io/socket.io.js"></script>
-
       <div className="flex flex-col h-screen">
         <nav className="bg-light border-gray-200 dark:bg-gray-900">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-center mx-auto p-4">
@@ -92,16 +90,16 @@ export default function Home() {
             </span>
           </div>
         </nav>
+        <div className="grid gap-2 m-10">
         <div className="font-bold font-serif">Your Username is : {username}</div>
+        </div>
         <div className="flex-grow w-90vw max-h-60vh border border-gray-200 rounded overflow-auto box-border p-10 m-10">
-        {displayMsg.map((val) => {
+        {displayMsg.map((val, index) => {
           return (
-            <div>
-<div className="font-bold font-serif">{val.showuser}</div>
+            <div key={index}>
+              <div className="font-bold font-serif">{val.showuser}</div>
               <div className="w-full">{val.showmsg}</div>
-            </div>
-              
-            
+            </div>         
           );
         })}
         </div>
@@ -109,7 +107,6 @@ export default function Home() {
           <Textarea placeholder="Enter Message" onChange={handleMessageChange} value={message}/>
           <Button onClick={handleClick}>Send message</Button>
         </div>
-        c
       </div>
     </div>
   );
