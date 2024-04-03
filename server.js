@@ -5,8 +5,8 @@ const { Server } = require("socket.io");
 const dev = process.env.NODE_ENV !== "production";
 const port = process.env.PORT || 3000;
 
-const hostname = "localhost";
-const app = next({ dev, hostname, port });
+const hostname = "chat-grp-sandy.vercel.app";
+const app = next({ dev, hostname});
 const handler = app.getRequestHandler();
 
 app.prepare().then(() => {
