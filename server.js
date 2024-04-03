@@ -3,10 +3,9 @@ const next = require("next");
 const { Server } = require("socket.io");
 
 const dev = process.env.NODE_ENV !== "production";
-const hostname = "localhost";
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-const app = next({ dev, hostname, port });
+const app = next({ dev });
 const handler = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -33,7 +32,7 @@ app.prepare().then(() => {
   });
 
   httpServer.listen(port, () => {
-    console.log(`Server listening on http://${hostname}:${port}`);
+    console.log(`Server listening on port ${port}`);
   });
 }).catch(err => {
   console.error('Next.js app preparation failed:', err);
