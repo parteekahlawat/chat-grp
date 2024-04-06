@@ -1,12 +1,12 @@
 const { createServer } = require("http");
-const next = require("next");
 const { Server } = require("socket.io");
+const next = require('next')
+// console.log(process.env)
+const dev = process.env.NEXT_PUBLIC_NODE_ENV !== "production";
+const port = process.env.NEXT_PUBLIC_PORT || 4000;
 
-const dev = process.env.NODE_ENV !== "production";
-const port = process.env.PORT || 3000;
-
-const hostname = "chat-grp-sandy.vercel.app";
-const app = next({ dev, hostname});
+const hostname = process.env.NEXT_PUBLIC_HOSTNAME || 'localhost';
+const app = next({ dev, hostname, port});
 const handler = app.getRequestHandler();
 
 app.prepare().then(() => {
@@ -33,7 +33,7 @@ app.prepare().then(() => {
   });
 
   httpServer.listen(port, () => {
-    console.log(`Server listening on port ${port}`);
+    console.log(`> Ready on http://${hostname}:${port}`);
   });
 }).catch(err => {
   console.error('Next.js app preparation failed:', err);
